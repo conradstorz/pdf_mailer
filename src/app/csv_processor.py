@@ -33,63 +33,53 @@ def process_simple_summary_csv(in_f: Path):
 
     DAYS = 30
 
-    # clean and convert numeric strings in "Surch" column
-    try:
-        cleaned = df["Surch"].replace(r"[\$,)]", "", regex=True)
-        df["Surch"] = cleaned.astype(float)
-    except KeyError as e:
-        logger.error(f"KeyError in dataframe during Surch cleanup: {e}")
+# clean and convert numeric strings in "Surch" and "Settlement" columns
+for col in ["Surch", "Settlement"]:
+    if col in df.columns:
+        df[col] = df[col].replace(r"[\$,)]", "", regex=True).astype(float)
+    else:
+        logger.error(f"Column '{col}' not found in dataframe during cleanup.")
         return empty_df
 
-    # clean and convert numeric strings in "Settlement" column
-    try:
-        settled = df["Settlement"].replace(r"[\$,)]", "", regex=True)
-        df["Settlement"] = settled.astype(float)
-    except KeyError as e:
-        logger.error(f"KeyError in dataframe during Settlement cleanup: {e}")
-        return empty_df
-
-    # convert "WD Trxs" to float
-    try:
+    # convert "WD Trxs" to float, handle missing column gracefully
+    if "WD Trxs" in df.columns:
         df["WD Trxs"] = df["WD Trxs"].astype(float)
-    except KeyError as e:
-        logger.error(f"KeyError in dataframe converting WD Trxs: {e}")
+    else:
+        logger.error("Column 'WD Trxs' not found in dataframe.")
         return empty_df
 
     # surcharge per withdrawal calculation
-    def calc(row):
-        """Calculate the surcharge earned per withdrawal."""
-        wd = row["WD Trxs"]
-        return round(row["Surch"] / wd, 2) if wd > 0 else 0
-    try:
-        df["Surcharge amt"] = df.apply(calc, axis=1)
-    except KeyError as e:
-        logger.error(f"KeyError in dataframe during Surcharge amt calculation: {e}")
+    if "Surch" in df.columns and "WD Trxs" in df.columns:
+        df["Surcharge amt"] = df.apply(
+            lambda row: round(row["Surch"] / row["WD Trxs"], 2) if row["WD Trxs"] > 0 else 0,
+            axis=1
+        )
+    else:
+        logger.error("Required columns 'Surch' or 'WD Trxs' not found in dataframe during Surcharge amt calculation.")
         return empty_df
 
     # average withdrawal amount calculation
-    def avgWD(row):
-        """Calculate the average amount of withdrawals."""
-        wd = row["WD Trxs"]
-        return round(row["Settlement"] / wd, 2) if wd > 0 else 0
-    try:
-        df["Average WD amount"] = df.apply(avgWD, axis=1)
-    except KeyError as e:
-        logger.error(f"KeyError in dataframe during Average WD amount calculation: {e}")
+    if "Settlement" in df.columns and "WD Trxs" in df.columns:
+        df["Average WD amount"] = df.apply(
+            lambda row: round(row["Settlement"] / row["WD Trxs"], 2) if row["WD Trxs"] > 0 else 0,
+            axis=1
+        )
+    else:
+        logger.error("Required columns 'Settlement' or 'WD Trxs' not found in dataframe during Average WD amount calculation.")
         return empty_df
 
     # daily average withdrawal over DAYS period
-    def DailyWD(row):
-        """Assuming {DAYS} days in report data calculate daily withdrawal total."""
-        return round(row["Settlement"] / DAYS, 2)
-    try:
-        df["Daily Vault AVG"] = df.apply(DailyWD, axis=1)
-    except KeyError as e:
-        logger.error(f"KeyError in dataframe during Daily Vault AVG calculation: {e}")
+    if "Settlement" in df.columns:
+        df["Daily Vault AVG"] = df.apply(
+            lambda row: round(row["Settlement"] / DAYS, 2),
+            axis=1
+        )
+    else:
+        logger.error("Column 'Settlement' not found in dataframe during Daily Vault AVG calculation.")
         return empty_df
 
     # extract commission rate from Group column when it contains "Commission"
-    try:
+    if "Group" in df.columns:
         def extract_commission_rate(val):
             if isinstance(val, str) and "Commission" in val:
                 m = re.search(r"([-]?\d+(?:\.\d+)?)", val)
@@ -97,17 +87,16 @@ def process_simple_summary_csv(in_f: Path):
             return 0.0
         df["Commission"] = df["Group"].apply(extract_commission_rate)
         logger.debug("Extracted commission rate into 'Commission' column.")
-    except KeyError:
+    else:
         logger.warning("'Group' column not found; 'Commission' column initialized to 0.")
         df["Commission"] = 0.0
 
     # multiply commission rate by number of surcharge withdrawals to get total commission
-    try:
+    if "Surcharge WDs" in df.columns:
         df["Commission"] = df["Commission"] * df["Surcharge WDs"]
         logger.debug("Computed total Commission as commission rate * 'Surcharge WDs'.")
-    except KeyError as e:
-        logger.error(f"Error computing total Commission: {e}")
-        # leave Commission as-is if missing
+    else:
+        logger.error("Column 'Surcharge WDs' not found in dataframe during Commission calculation. Leaving 'Commission' as-is.")
 
     # work is finished. Drop unneeded columns from output
     # remove 'Terminal' and 'Group' along with 'Settlement Date'

@@ -795,3 +795,210 @@ Traceback (most recent call last):
     └ <loguru.logger handlers=[(id=0, level=10, sink=<stderr>), (id=1, level=10, sink='/logs/csv_pdf_printer.log')]>
 
 NameError: name 'FORMATTING_FILE' is not defined
+2025-06-24 09:26:36.455 | DEBUG    | app.csv_processor:process_simple_summary_csv:15 - Read CSV file /tmp/ATMActivityReport-20250221-083123AM.csv with 99 rows and 13 columns.
+2025-06-24 09:26:36.456 | DEBUG    | app.csv_processor:process_simple_summary_csv:21 - Attempting to read formatting file at src/app/formatting.json
+2025-06-24 09:26:36.456 | WARNING  | app.csv_processor:process_simple_summary_csv:27 - Formatting file not found: src/app/formatting.json. Proceeding without it.
+2025-06-24 09:26:36.459 | ERROR    | app.csv_processor:process_simple_summary_csv:56 - KeyError in dataframe converting WD Trxs: 'WD Trxs'
+2025-06-24 09:26:36.460 | ERROR    | app.pdf_processor:process_and_send_email:49 - Unhandled error during processing.
+Traceback (most recent call last):
+
+  File "/usr/local/bin/uvicorn", line 10, in <module>
+    sys.exit(main())
+    │   │    └ <Command main>
+    │   └ <built-in function exit>
+    └ <module 'sys' (built-in)>
+  File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1442, in __call__
+    return self.main(*args, **kwargs)
+           │    │     │       └ {}
+           │    │     └ ()
+           │    └ <function Command.main at 0x7f29469df7e0>
+           └ <Command main>
+  File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1363, in main
+    rv = self.invoke(ctx)
+         │    │      └ <click.core.Context object at 0x7f2947650b50>
+         │    └ <function Command.invoke at 0x7f29469df4c0>
+         └ <Command main>
+  File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1226, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           │   │      │    │           │   └ {'host': '0.0.0.0', 'port': 7632, 'app_dir': 'src', 'app': 'app.main:app', 'uds': None, 'fd': None, 'reload': False, 'reload_...
+           │   │      │    │           └ <click.core.Context object at 0x7f2947650b50>
+           │   │      │    └ <function main at 0x7f29467c63e0>
+           │   │      └ <Command main>
+           │   └ <function Context.invoke at 0x7f29469de700>
+           └ <click.core.Context object at 0x7f2947650b50>
+  File "/usr/local/lib/python3.11/site-packages/click/core.py", line 794, in invoke
+    return callback(*args, **kwargs)
+           │         │       └ {'host': '0.0.0.0', 'port': 7632, 'app_dir': 'src', 'app': 'app.main:app', 'uds': None, 'fd': None, 'reload': False, 'reload_...
+           │         └ ()
+           └ <function main at 0x7f29467c63e0>
+  File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 413, in main
+    run(
+    └ <function run at 0x7f29468f07c0>
+  File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 580, in run
+    server.run()
+    │      └ <function Server.run at 0x7f29469498a0>
+    └ <uvicorn.server.Server object at 0x7f29468d0c90>
+  File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 66, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           │       │   │    │             └ None
+           │       │   │    └ <function Server.serve at 0x7f2946949940>
+           │       │   └ <uvicorn.server.Server object at 0x7f29468d0c90>
+           │       └ <function run at 0x7f2946c0c720>
+           └ <module 'asyncio' from '/usr/local/lib/python3.11/asyncio/__init__.py'>
+  File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           │      │   └ <coroutine object Server.serve at 0x7f2946998e50>
+           │      └ <function Runner.run at 0x7f2946c34900>
+           └ <asyncio.runners.Runner object at 0x7f2947432cd0>
+  File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='Task-1' coro=<Server.serve() running at /usr/local/lib/python3.11/site-packages/uvicorn/server.py:70> wai...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x7f2946c0e520>
+           │    └ <_UnixSelectorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x7f2947432cd0>
+  File "/usr/local/lib/python3.11/asyncio/base_events.py", line 641, in run_until_complete
+    self.run_forever()
+    │    └ <function BaseEventLoop.run_forever at 0x7f2946c0e480>
+    └ <_UnixSelectorEventLoop running=True closed=False debug=False>
+  File "/usr/local/lib/python3.11/asyncio/base_events.py", line 608, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x7f2946c342c0>
+    └ <_UnixSelectorEventLoop running=True closed=False debug=False>
+  File "/usr/local/lib/python3.11/asyncio/base_events.py", line 1936, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x7f2946d86480>
+    └ <Handle <TaskStepMethWrapper object at 0x7f2904a302b0>()>
+  File "/usr/local/lib/python3.11/asyncio/events.py", line 84, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle <TaskStepMethWrapper object at 0x7f2904a302b0>()>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle <TaskStepMethWrapper object at 0x7f2904a302b0>()>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle <TaskStepMethWrapper object at 0x7f2904a302b0>()>
+  File "/usr/local/lib/python3.11/site-packages/uvicorn/protocols/http/h11_impl.py", line 403, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+                   └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x7f29038a2dd0>
+  File "/usr/local/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+                 │    │   │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x7f290378bd10>>
+                 │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x7f290378bd10>>
+                 │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('172.19.0.2', 7632), 'c...
+                 │    └ <fastapi.applications.FastAPI object at 0x7f2945b1fad0>
+                 └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x7f29038a2dd0>
+  File "/usr/local/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+                           │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x7f290378bd10>>
+                           │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x7f290378bd10>>
+                           └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('172.19.0.2', 7632), 'c...
+  File "/usr/local/lib/python3.11/site-packages/starlette/applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x7f290378bd10>>
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x7f290378bd10>>
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('172.19.0.2', 7632), 'c...
+          │    └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x7f2903905dd0>
+          └ <fastapi.applications.FastAPI object at 0x7f2945b1fad0>
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+    await self.app(scope, receive, _send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x7f29467c45e0>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x7f290378bd10>>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('172.19.0.2', 7632), 'c...
+          │    └ <starlette.middleware.cors.CORSMiddleware object at 0x7f29039ae450>
+          └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x7f2903905dd0>
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+          │    │               │      │        │                     └ Headers({'host': 'localhost:7632', 'connection': 'keep-alive', 'content-length': '14079', 'cache-control': 'max-age=0', 'sec-...
+          │    │               │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x7f29467c45e0>
+          │    │               │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x7f290378bd10>>
+          │    │               └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('172.19.0.2', 7632), 'c...
+          │    └ <function CORSMiddleware.simple_response at 0x7f2945a220c0>
+          └ <starlette.middleware.cors.CORSMiddleware object at 0x7f29039ae450>
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+          │    │   │      │        └ functools.partial(<bound method CORSMiddleware.send of <starlette.middleware.cors.CORSMiddleware object at 0x7f29039ae450>>, ...
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x7f290378bd10>>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('172.19.0.2', 7632), 'c...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x7f29039aefd0>
+          └ <starlette.middleware.cors.CORSMiddleware object at 0x7f29039ae450>
+  File "/usr/local/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ functools.partial(<bound method CORSMiddleware.send of <starlette.middleware.cors.CORSMiddleware object at 0x7f29039ae450>>, ...
+          │                            │    │    │     │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x7f290378bd10>>
+          │                            │    │    │     └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('172.19.0.2', 7632), 'c...
+          │                            │    │    └ <starlette.requests.Request object at 0x7f2903768f50>
+          │                            │    └ <fastapi.routing.APIRouter object at 0x7f2903919f10>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x7f29039aefd0>
+          └ <function wrap_app_handling_exceptions at 0x7f29459e0a40>
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x7f290377bba0>
+          │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x7f290378bd10>>
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('172.19.0.2', 7632), 'c...
+          └ <fastapi.routing.APIRouter object at 0x7f2903919f10>
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 714, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x7f290377bba0>
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x7f290378bd10>>
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('172.19.0.2', 7632), 'c...
+          │    └ <bound method Router.app of <fastapi.routing.APIRouter object at 0x7f2903919f10>>
+          └ <fastapi.routing.APIRouter object at 0x7f2903919f10>
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 734, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x7f290377bba0>
+          │     │      │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x7f290378bd10>>
+          │     │      └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('172.19.0.2', 7632), 'c...
+          │     └ <function Route.handle at 0x7f29459e20c0>
+          └ APIRoute(path='/upload', name='handle_upload', methods=['POST'])
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x7f290377bba0>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x7f290378bd10>>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('172.19.0.2', 7632), 'c...
+          │    └ <function request_response.<locals>.app at 0x7f290377b380>
+          └ APIRoute(path='/upload', name='handle_upload', methods=['POST'])
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x7f290377bba0>
+          │                            │    │        │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x7f290378bd10>>
+          │                            │    │        └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('172.19.0.2', 7632), 'c...
+          │                            │    └ <starlette.requests.Request object at 0x7f2903768bd0>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x7f290377bb00>
+          └ <function wrap_app_handling_exceptions at 0x7f29459e0a40>
+  File "/usr/local/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x7f290377bd80>
+          │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x7f290378bd10>>
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('172.19.0.2', 7632), 'c...
+          └ <function request_response.<locals>.app.<locals>.app at 0x7f290377bb00>
+  File "/usr/local/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x7f2903768bd0>
+                     └ <function get_request_handler.<locals>.app at 0x7f290377b420>
+  File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x7f29459e1bc0>
+  File "/usr/local/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'file': UploadFile(filename='ATMActivityReport-20250221-083123AM.csv', size=13868, headers=Headers({'content-disposition': '...
+                 │         └ <function handle_upload at 0x7f290377aca0>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=File(Pydant...
+
+  File "/app/src/app/endpoints.py", line 20, in handle_upload
+    result = process_and_send_email(saved_path)
+             │                      └ PosixPath('/tmp/ATMActivityReport-20250221-083123AM.csv')
+             └ <function process_and_send_email at 0x7f290377aa20>
+
+> File "/app/src/app/pdf_processor.py", line 37, in process_and_send_email
+    if df == None:
+       └ Empty DataFrame
+         Columns: []
+         Index: []
+
+  File "/usr/local/lib/python3.11/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+2025-06-24 09:30:32.041 | DEBUG    | app.csv_processor:process_simple_summary_csv:15 - Read CSV file /tmp/ATMActivityReport-20250221-083123AM.csv with 99 rows and 13 columns.
+2025-06-24 09:30:32.041 | DEBUG    | app.csv_processor:process_simple_summary_csv:21 - Attempting to read formatting file at src/app/formatting.json
+2025-06-24 09:30:32.042 | WARNING  | app.csv_processor:process_simple_summary_csv:27 - Formatting file not found: src/app/formatting.json. Proceeding without it.
+2025-06-24 09:30:32.045 | ERROR    | app.csv_processor:process_simple_summary_csv:56 - KeyError in dataframe converting WD Trxs: 'WD Trxs'

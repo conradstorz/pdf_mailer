@@ -34,9 +34,6 @@ def generate_pdf(df: pd.DataFrame, out_path: Path):
 def process_and_send_email(csv_path: Path) -> str:
     try:
         df = process_simple_summary_csv(csv_path)
-        if df == None:
-            return "❌ Error processing CSV: DataFrame is None."
-            
         if df.empty:
             return "No data to process."
 
