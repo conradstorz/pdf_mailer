@@ -33,13 +33,13 @@ def process_simple_summary_csv(in_f: Path):
 
     DAYS = 30
 
-# clean and convert numeric strings in "Surch" and "Settlement" columns
-for col in ["Surch", "Settlement"]:
-    if col in df.columns:
-        df[col] = df[col].replace(r"[\$,)]", "", regex=True).astype(float)
-    else:
-        logger.error(f"Column '{col}' not found in dataframe during cleanup.")
-        return empty_df
+    # clean and convert numeric strings in "Surch" and "Settlement" columns
+    for col in ["Surch", "Settlement"]:
+        if col in df.columns:
+            df[col] = df[col].replace(r"[\$,)]", "", regex=True).astype(float)
+        else:
+            logger.error(f"Column '{col}' not found in dataframe during cleanup.")
+            return empty_df
 
     # convert "WD Trxs" to float, handle missing column gracefully
     if "WD Trxs" in df.columns:
