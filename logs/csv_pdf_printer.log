@@ -1002,3 +1002,7 @@ ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), 
 2025-06-24 09:30:32.041 | DEBUG    | app.csv_processor:process_simple_summary_csv:21 - Attempting to read formatting file at src/app/formatting.json
 2025-06-24 09:30:32.042 | WARNING  | app.csv_processor:process_simple_summary_csv:27 - Formatting file not found: src/app/formatting.json. Proceeding without it.
 2025-06-24 09:30:32.045 | ERROR    | app.csv_processor:process_simple_summary_csv:56 - KeyError in dataframe converting WD Trxs: 'WD Trxs'
+2025-06-24 09:47:05.313 | DEBUG    | app.csv_processor:process_simple_summary_csv:15 - Read CSV file /tmp/ATMActivityReport-20250221-083123AM.csv with 99 rows and 13 columns.
+2025-06-24 09:47:05.314 | DEBUG    | app.csv_processor:process_simple_summary_csv:21 - Attempting to read formatting file at src/app/formatting.json
+2025-06-24 09:47:05.314 | WARNING  | app.csv_processor:process_simple_summary_csv:27 - Formatting file not found: src/app/formatting.json. Proceeding without it.
+2025-06-24 09:47:05.317 | ERROR    | app.csv_processor:process_simple_summary_csv:48 - Column 'WD Trxs' not found in dataframe.
