@@ -12,8 +12,8 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
 SCOPES = ['https://www.googleapis.com/auth/gmail.send']
-TOKEN_PATH = Path("/secrets/token.json")
-CREDS_PATH = Path("/secrets/credentials.json")
+TOKEN_PATH = Path("/.secrets/token.json")
+CREDS_PATH = Path("/.secrets/credentials.json")
 
 def get_gmail_service():
     creds = None

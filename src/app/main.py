@@ -6,7 +6,7 @@ from app.endpoints import router
 
 app = FastAPI()
 app.include_router(router)
-app.mount("/static", StaticFiles(directory="app/templates"), name="static")
+app.mount("/static", StaticFiles(directory="src/app/templates"), name="static")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], allow_methods=["*"], allow_headers=["*"]

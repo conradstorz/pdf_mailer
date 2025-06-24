@@ -10,5 +10,10 @@ dependencies = [
     "reportlab",
     "google-api-python-client",
     "google-auth",
-    "google-auth-oauthlib"
+    "google-auth-oauthlib",
+    "python-multipart"
 ]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["app"]

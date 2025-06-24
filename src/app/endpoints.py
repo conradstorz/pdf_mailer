@@ -8,7 +8,7 @@ router = APIRouter()
 
 @router.get("/", response_class=HTMLResponse)
 async def upload_page():
-    return Path("app/templates/upload.html").read_text()
+    return Path("src/app/templates/upload.html").read_text()
 
 @router.post("/upload")
 async def handle_upload(file: UploadFile = File(...)):
@@ -18,6 +18,8 @@ async def handle_upload(file: UploadFile = File(...)):
 
     try:
         result = process_and_send_email(saved_path)
+        if result.startswith("❌"):
+            return PlainTextResponse(result, status_code=500)        
         return PlainTextResponse(f"✅ {result}")
     except Exception as e:
         return PlainTextResponse(f"❌ Error: {e}", status_code=500)
